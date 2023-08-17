@@ -5,7 +5,16 @@ import { loginTC } from "./auth-reducer";
 import { AppRootStateType } from "../../app/store";
 import { Navigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
+  Grid,
+  TextField,
+} from "@mui/material";
 
 export const Login = () => {
   const dispatch = useAppDispatch();
@@ -58,11 +67,21 @@ export const Login = () => {
             <FormGroup>
               <TextField label="Email" margin="normal" {...formik.getFieldProps("email")} />
               {formik.errors.email ? <div>{formik.errors.email}</div> : null}
-              <TextField type="password" label="Password" margin="normal" {...formik.getFieldProps("password")} />
+              <TextField
+                type="password"
+                label="Password"
+                margin="normal"
+                {...formik.getFieldProps("password")}
+              />
               {formik.errors.password ? <div>{formik.errors.password}</div> : null}
               <FormControlLabel
                 label={"Remember me"}
-                control={<Checkbox {...formik.getFieldProps("rememberMe")} checked={formik.values.rememberMe} />}
+                control={
+                  <Checkbox
+                    {...formik.getFieldProps("rememberMe")}
+                    checked={formik.values.rememberMe}
+                  />
+                }
               />
               <Button type={"submit"} variant={"contained"} color={"primary"}>
                 Login

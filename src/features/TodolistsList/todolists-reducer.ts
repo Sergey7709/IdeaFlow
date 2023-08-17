@@ -36,7 +36,8 @@ export const todolistsReducer = (
 
 // actions
 export const removeTodolistAC = (id: string) => ({ type: "REMOVE-TODOLIST", id }) as const;
-export const addTodolistAC = (todolist: TodolistType) => ({ type: "ADD-TODOLIST", todolist }) as const;
+export const addTodolistAC = (todolist: TodolistType) =>
+  ({ type: "ADD-TODOLIST", todolist }) as const;
 export const changeTodolistTitleAC = (id: string, title: string) =>
   ({
     type: "CHANGE-TODOLIST-TITLE",
@@ -55,7 +56,8 @@ export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusTy
     id,
     status,
   }) as const;
-export const setTodolistsAC = (todolists: Array<TodolistType>) => ({ type: "SET-TODOLISTS", todolists }) as const;
+export const setTodolistsAC = (todolists: Array<TodolistType>) =>
+  ({ type: "SET-TODOLISTS", todolists }) as const;
 
 // thunks
 export const fetchTodolistsTC = (): AppThunk => {
