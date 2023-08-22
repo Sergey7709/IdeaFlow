@@ -12,7 +12,7 @@ import { Delete } from "@mui/icons-material";
 type PropsType = {
   todolist: TodolistDomainType;
   tasks: Array<TaskType>;
-  changeFilter: (value: FilterValuesType, todolistId: string) => void;
+  changeFilter: (filter: FilterValuesType, id: string) => void;
   addTask: (title: string, todolistId: string) => void;
   changeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void;
   changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void;
@@ -29,6 +29,7 @@ export const Todolist = React.memo(function ({ demo = false, ...props }: PropsTy
     if (demo) {
       return;
     }
+
     const thunk = fetchTasksTC(props.todolist.id);
     dispatch(thunk);
   }, []);
@@ -82,7 +83,7 @@ export const Todolist = React.memo(function ({ demo = false, ...props }: PropsTy
       </h3>
       <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === "loading"} />
       <div>
-        {tasksForTodolist.map((t) => (
+        {tasksForTodolist?.map((t) => (
           <Task
             key={t.id}
             task={t}
