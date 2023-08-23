@@ -9,15 +9,11 @@ const taskSlice = createSlice({
   name: "task",
   initialState: {} as TasksStateType,
   reducers: {
-    removeTask: (state, action: PayloadAction<{ taskId: string; todolistId: string }>) => {
-      const tasksForTodolist = state[action.payload.todolistId];
-      const index = tasksForTodolist.findIndex((t) => t.id === action.payload.taskId);
-      if (index !== -1) tasksForTodolist.splice(index, 1);
-    },
     addTask: (state, action: PayloadAction<{ task: TaskType }>) => {
       const tasksForCurrentTodolist = state[action.payload.task.todoListId];
       tasksForCurrentTodolist.unshift(action.payload.task);
     },
+
     updateTask: (
       state,
       action: PayloadAction<{
@@ -32,9 +28,16 @@ const taskSlice = createSlice({
         tasksForTodolist[index] = { ...tasksForTodolist[index], ...action.payload.model };
       }
     },
+    removeTask: (state, action: PayloadAction<{ taskId: string; todolistId: string }>) => {
+      const tasksForTodolist = state[action.payload.todolistId];
+      const index = tasksForTodolist.findIndex((t) => t.id === action.payload.taskId);
+      if (index !== -1) tasksForTodolist.splice(index, 1);
+    },
+
     setTasks: (state, action: PayloadAction<{ tasks: Array<TaskType>; todolistId: string }>) => {
       state[action.payload.todolistId] = action.payload.tasks;
     },
+    setResetStateTasks: () => ({}) as TasksStateType,
   },
   extraReducers: (builder) => {
     builder
@@ -104,7 +107,7 @@ export const updateTaskTC =
   (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string): AppThunk =>
   (dispatch, getState: () => AppRootStateType) => {
     const state = getState();
-    const task = state.tasks[todolistId].find((t) => t.id === taskId); //!!!!
+    const task = state.tasks[todolistId].find((t) => t.id === taskId);
     if (!task) {
       console.warn("task not found in the state");
       return;

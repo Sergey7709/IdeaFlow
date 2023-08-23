@@ -3,6 +3,8 @@ import { authAPI, LoginParamsType } from "../../api/todolists-api";
 import { handleServerAppError, handleServerNetworkError } from "../../utils/error-utils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk } from "../../app/store";
+import { taskActions } from "../TodolistsList/tasks-reducer";
+import { todolistsActions } from "../TodolistsList/todolists-reducer";
 
 export type InitialStateType = {
   isLoggedIn: boolean;
@@ -52,6 +54,8 @@ export const logoutTC = (): AppThunk => (dispatch) => {
     .then((res) => {
       if (res.data.resultCode === 0) {
         dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }));
+        dispatch(taskActions.setResetStateTasks());
+        dispatch(todolistsActions.setResetStateTodolists());
         dispatch(appActions.setAppStatus({ status: "succeeded" }));
       } else {
         handleServerAppError(res.data, dispatch);
