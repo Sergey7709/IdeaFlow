@@ -1,5 +1,5 @@
 import { authAPI } from "../api/todolists-api";
-import { authActions } from "../features/Login/auth-reducer";
+import { authActions } from "../features/auth/auth-reducer";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { AppThunk } from "./store";
 
