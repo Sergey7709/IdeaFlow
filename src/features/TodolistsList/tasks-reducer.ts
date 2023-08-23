@@ -37,7 +37,7 @@ const taskSlice = createSlice({
     setTasks: (state, action: PayloadAction<{ tasks: Array<TaskType>; todolistId: string }>) => {
       state[action.payload.todolistId] = action.payload.tasks;
     },
-    setResetStateTasks: () => ({}) as TasksStateType,
+    setResetStateTasks: () => ({}),
   },
   extraReducers: (builder) => {
     builder

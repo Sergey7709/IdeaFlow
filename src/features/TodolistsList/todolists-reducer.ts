@@ -38,7 +38,7 @@ const slice = createSlice({
         state.push({ ...tl, filter: "all", entityStatus: "idle" });
       });
     },
-    setResetStateTodolists: () => [] as TodolistDomainType[],
+    setResetStateTodolists: () => [],
   },
 });
 
