@@ -1,8 +1,9 @@
-import { todolistsAPI, TodolistType } from "api/todolists-api";
+import { todolistsAPI } from "features/TodolistsList/todolists-api";
 import { appActions, RequestStatusType } from "app/app-reducer";
-import { handleServerNetworkError } from "utils/error-utils";
+import { handleServerNetworkError } from "common/utils/handleServerNetworkError";
 import { AppThunk } from "app/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TodolistType } from "common/types";
 
 const slice = createSlice({
   name: "todolists",
@@ -19,19 +20,13 @@ const slice = createSlice({
       const index = state.findIndex((todo) => todo.id === action.payload.id);
       if (index !== -1) state.splice(index, 1);
     },
-    changeTodolistTitle: (
-      state,
-      action: PayloadAction<{ id: string; title: string }>,
-    ) => {
+    changeTodolistTitle: (state, action: PayloadAction<{ id: string; title: string }>) => {
       const todolist = state.find((todo) => todo.id === action.payload.id);
       if (todolist) {
         todolist.title = action.payload.title;
       }
     },
-    changeTodolistFilter: (
-      state,
-      action: PayloadAction<{ id: string; filter: FilterValuesType }>,
-    ) => {
+    changeTodolistFilter: (state, action: PayloadAction<{ id: string; filter: FilterValuesType }>) => {
       const todolist = state.find((todo) => todo.id === action.payload.id);
       if (todolist) {
         todolist.filter = action.payload.filter;
@@ -46,10 +41,7 @@ const slice = createSlice({
         todolist.entityStatus = action.payload.entityStatus;
       }
     },
-    setTodolists: (
-      state,
-      action: PayloadAction<{ todolists: TodolistType[] }>,
-    ) => {
+    setTodolists: (state, action: PayloadAction<{ todolists: TodolistType[] }>) => {
       action.payload.todolists.forEach((tl) => {
         state.push({ ...tl, filter: "all", entityStatus: "idle" });
       });

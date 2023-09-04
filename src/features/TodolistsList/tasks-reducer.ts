@@ -1,18 +1,11 @@
 import { appActions } from "app/app-reducer";
-import {
-  AddTasksArg,
-  TaskPriorities,
-  TaskStatuses,
-  TaskType,
-  todolistsAPI,
-  UpdateTaskModelType,
-  UpdateTasksArg,
-} from "api/todolists-api";
-import { AppRootStateType, AppThunk } from "app/store";
-import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
+import { AddTasksArg, todolistsAPI, UpdateTasksArg } from "features/TodolistsList/todolists-api";
+import { AppThunk } from "app/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { todolistsActions } from "./todolists-reducer";
-import { createAppAsyncThunk } from "../../utils/create-app-async-thunk";
+import { createAppAsyncThunk, handleServerNetworkError, handleServerAppError } from "common/utils";
+import { TaskPriorities, TaskStatuses } from "common/enums";
+import { TaskType, UpdateTaskModelType } from "../../common/types";
 
 const taskSlice = createSlice({
   name: "task",

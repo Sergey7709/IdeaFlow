@@ -10,15 +10,15 @@ import {
   todolistsActions,
 } from "./todolists-reducer";
 import { removeTaskTC, tasksThunk } from "./tasks-reducer";
-import { TaskStatuses } from "../../api/todolists-api";
 import { Grid, Paper } from "@mui/material";
-import { AddItemForm } from "../../components/AddItemForm/AddItemForm";
+import { AddItemForm } from "components/AddItemForm/AddItemForm";
 import { Todolist } from "./Todolist/Todolist";
 import { Navigate } from "react-router-dom";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { useAppDispatch } from "common/hooks";
 import { selectTodolists } from "./todolists.selectors";
 import { selectTasks } from "./tasks.selectors";
 import { selectIsLoggedIn } from "../auth/auth.selectors";
+import { TaskStatuses } from "common/enums";
 
 type PropsType = {
   demo?: boolean;
