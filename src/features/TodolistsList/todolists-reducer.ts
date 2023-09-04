@@ -9,31 +9,47 @@ const slice = createSlice({
   initialState: [] as TodolistDomainType[],
   reducers: {
     addTodolist: (state, action: PayloadAction<{ todolist: TodolistType }>) => {
-      state.unshift({ ...action.payload.todolist, filter: "all", entityStatus: "idle" });
+      state.unshift({
+        ...action.payload.todolist,
+        filter: "all",
+        entityStatus: "idle",
+      });
     },
     removeTodolist: (state, action: PayloadAction<{ id: string }>) => {
       const index = state.findIndex((todo) => todo.id === action.payload.id);
       if (index !== -1) state.splice(index, 1);
     },
-    changeTodolistTitle: (state, action: PayloadAction<{ id: string; title: string }>) => {
+    changeTodolistTitle: (
+      state,
+      action: PayloadAction<{ id: string; title: string }>,
+    ) => {
       const todolist = state.find((todo) => todo.id === action.payload.id);
       if (todolist) {
         todolist.title = action.payload.title;
       }
     },
-    changeTodolistFilter: (state, action: PayloadAction<{ id: string; filter: FilterValuesType }>) => {
+    changeTodolistFilter: (
+      state,
+      action: PayloadAction<{ id: string; filter: FilterValuesType }>,
+    ) => {
       const todolist = state.find((todo) => todo.id === action.payload.id);
       if (todolist) {
         todolist.filter = action.payload.filter;
       }
     },
-    changeTodolistEntityStatus: (state, action: PayloadAction<{ id: string; entityStatus: RequestStatusType }>) => {
+    changeTodolistEntityStatus: (
+      state,
+      action: PayloadAction<{ id: string; entityStatus: RequestStatusType }>,
+    ) => {
       const todolist = state.find((todo) => todo.id === action.payload.id);
       if (todolist) {
         todolist.entityStatus = action.payload.entityStatus;
       }
     },
-    setTodolists: (state, action: PayloadAction<{ todolists: TodolistType[] }>) => {
+    setTodolists: (
+      state,
+      action: PayloadAction<{ todolists: TodolistType[] }>,
+    ) => {
       action.payload.todolists.forEach((tl) => {
         state.push({ ...tl, filter: "all", entityStatus: "idle" });
       });
@@ -46,6 +62,7 @@ export const todolistsActions = slice.actions;
 export const todolistsReducer = slice.reducer;
 
 // thunks
+
 export const fetchTodolistsTC = (): AppThunk => {
   return (dispatch) => {
     dispatch(appActions.setAppStatus({ status: "loading" }));
@@ -63,7 +80,12 @@ export const fetchTodolistsTC = (): AppThunk => {
 export const removeTodolistTC = (id: string): AppThunk => {
   return (dispatch) => {
     dispatch(appActions.setAppStatus({ status: "loading" }));
-    dispatch(todolistsActions.changeTodolistEntityStatus({ id, entityStatus: "loading" }));
+    dispatch(
+      todolistsActions.changeTodolistEntityStatus({
+        id,
+        entityStatus: "loading",
+      }),
+    );
     todolistsAPI.deleteTodolist(id).then((res) => {
       dispatch(todolistsActions.removeTodolist({ id }));
       dispatch(appActions.setAppStatus({ status: "succeeded" }));

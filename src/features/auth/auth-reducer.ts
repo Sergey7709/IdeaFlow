@@ -1,8 +1,8 @@
-import { appActions } from "../../app/app-reducer";
-import { authAPI, LoginParamsType } from "../../api/todolists-api";
-import { handleServerAppError, handleServerNetworkError } from "../../utils/error-utils";
+import { appActions } from "app/app-reducer";
+import { authAPI, LoginParamsType } from "api/todolists-api";
+import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppThunk } from "../../app/store";
+import { AppThunk } from "app/store";
 import { taskActions } from "../TodolistsList/tasks-reducer";
 import { todolistsActions } from "../TodolistsList/todolists-reducer";
 
