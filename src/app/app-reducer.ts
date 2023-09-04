@@ -1,7 +1,7 @@
-import { authAPI } from "../features/TodolistsList/todolists-api";
-import { authActions } from "../features/auth/auth-reducer";
+import { authActions } from "features/auth/auth-reducer";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { AppThunk } from "./store";
+import { authAPI } from "features/auth/auth.api";
 
 export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed";
 

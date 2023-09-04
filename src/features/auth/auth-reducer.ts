@@ -1,11 +1,12 @@
 import { appActions } from "app/app-reducer";
-import { authAPI, LoginParamsType } from "features/TodolistsList/todolists-api";
 import { handleServerNetworkError } from "common/utils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk } from "app/store";
 import { taskActions } from "../TodolistsList/tasks-reducer";
 import { todolistsActions } from "../TodolistsList/todolists-reducer";
 import { handleServerAppError } from "common/utils";
+import { authAPI } from "./auth.api";
+import { LoginParamsType } from "../TodolistsList/todolists-tasks-type";
 
 export type InitialStateType = {
   isLoggedIn: boolean;
