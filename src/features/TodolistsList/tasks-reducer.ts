@@ -4,8 +4,8 @@ import { AppThunk } from "app/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { todolistsActions } from "./todolists-reducer";
 import { createAppAsyncThunk, handleServerNetworkError, handleServerAppError } from "common/utils";
-import { TaskPriorities, TaskStatuses } from "common/enums";
-import { TaskType, AddTasksArg, UpdateTasksArg, UpdateTaskModelType } from "./todolists-tasks-type";
+import { ResultCode, TaskPriorities, TaskStatuses } from "common/enums";
+import { TaskType, AddTasksArg, UpdateTasksArg, UpdateTaskModelType } from "./todolists-tasks-Api-types";
 
 const taskSlice = createSlice({
   name: "task",
@@ -78,7 +78,7 @@ export const addTask = createAppAsyncThunk<{ task: TaskType }, AddTasksArg>(
     try {
       dispatch(appActions.setAppStatus({ status: "loading" }));
       const res = await todolistsAPI.createTask(arg);
-      if (res.data.resultCode === 0) {
+      if (res.data.resultCode === ResultCode.Success) {
         dispatch(appActions.setAppStatus({ status: "succeeded" }));
         return { task: res.data.data.item };
       } else {

@@ -6,7 +6,7 @@ import {
   TaskType,
   TodolistType,
   UpdateTaskModelType,
-} from "./todolists-tasks-type";
+} from "./todolists-tasks-Api-types";
 
 export const todolistsAPI = {
   getTodolists() {

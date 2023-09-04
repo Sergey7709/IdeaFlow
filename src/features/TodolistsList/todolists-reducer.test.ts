@@ -6,7 +6,7 @@ import {
 } from "./todolists-reducer";
 import { v1 } from "uuid";
 import { RequestStatusType } from "../../app/app-reducer";
-import { TodolistType } from "./todolists-tasks-type";
+import { TodolistType } from "./todolists-tasks-Api-types";
 
 let todolistId1: string;
 let todolistId2: string;

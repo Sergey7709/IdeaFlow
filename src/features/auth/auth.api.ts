@@ -1,6 +1,6 @@
 import { instance } from "common/api";
 import { ResponseType } from "common/types";
-import { LoginParamsType } from "../TodolistsList/todolists-tasks-type";
+import { LoginParamsType } from "../TodolistsList/todolists-tasks-Api-types";
 
 export const authAPI = {
   login(data: LoginParamsType) {

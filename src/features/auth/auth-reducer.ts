@@ -6,7 +6,7 @@ import { taskActions } from "../TodolistsList/tasks-reducer";
 import { todolistsActions } from "../TodolistsList/todolists-reducer";
 import { handleServerAppError } from "common/utils";
 import { authAPI } from "./auth.api";
-import { LoginParamsType } from "../TodolistsList/todolists-tasks-type";
+import { LoginParamsType } from "../TodolistsList/todolists-tasks-Api-types";
 
 export type InitialStateType = {
   isLoggedIn: boolean;

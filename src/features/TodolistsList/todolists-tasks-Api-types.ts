@@ -1,4 +1,4 @@
-import { TaskStatuses, TaskPriorities } from "../../common/enums";
+import { TaskStatuses, TaskPriorities } from "common/enums";
 import { UpdateDomainTaskModelType } from "./tasks-reducer";
 
 export type AddTasksArg = { todolistId: string; title: string };

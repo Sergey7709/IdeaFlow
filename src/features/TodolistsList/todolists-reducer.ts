@@ -3,7 +3,7 @@ import { appActions, RequestStatusType } from "app/app-reducer";
 import { handleServerNetworkError } from "common/utils/handleServerNetworkError";
 import { AppThunk } from "app/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TodolistType } from "./todolists-tasks-type";
+import { TodolistType } from "./todolists-tasks-Api-types";
 
 const slice = createSlice({
   name: "todolists",
@@ -52,8 +52,6 @@ const slice = createSlice({
 
 export const todolistsActions = slice.actions;
 export const todolistsReducer = slice.reducer;
-
-// thunks
 
 export const fetchTodolistsTC = (): AppThunk => {
   return (dispatch) => {

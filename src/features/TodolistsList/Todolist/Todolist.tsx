@@ -7,7 +7,7 @@ import { Delete } from "@mui/icons-material";
 import { EditableSpan, AddItemForm } from "components";
 import { useAppDispatch } from "common/hooks";
 import { TaskStatuses } from "common/enums";
-import { TaskType } from "../todolists-tasks-type";
+import { TaskType } from "../todolists-tasks-Api-types";
 
 type PropsType = {
   todolist: TodolistDomainType;
