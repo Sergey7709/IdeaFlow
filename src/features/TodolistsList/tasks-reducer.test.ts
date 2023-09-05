@@ -1,4 +1,4 @@
-import { taskActions, taskReducer, TasksStateType, tasksThunk } from "./tasks-reducer";
+import { taskReducer, TasksStateType, tasksThunk } from "./tasks-reducer";
 
 import { todolistsActions } from "./todolists-reducer";
 import { TaskPriorities, TaskStatuses } from "common/enums";
@@ -86,7 +86,10 @@ beforeEach(() => {
 });
 
 test("correct task should be deleted from correct array", () => {
-  const action = taskActions.removeTask({ taskId: "2", todolistId: "todolistId2" });
+  const action = tasksThunk.removeTask.fulfilled({ taskId: "2", todolistId: "todolistId2" }, "requestID", {
+    taskId: "2",
+    todolistId: "todolistId2",
+  });
 
   const endState = taskReducer(startState, action);
 

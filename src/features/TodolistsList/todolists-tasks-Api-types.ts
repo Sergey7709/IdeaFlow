@@ -5,6 +5,8 @@ export type AddTasksArg = { todolistId: string; title: string };
 
 export type UpdateTasksArg = { taskId: string; domainModel: UpdateDomainTaskModelType; todolistId: string };
 
+export type RemoveTask = { taskId: string; todolistId: string }; //!!!
+
 export type LoginParamsType = {
   email: string;
   password: string;
