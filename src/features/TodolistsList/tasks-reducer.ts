@@ -9,7 +9,7 @@ import {
   AddTasksArg,
   UpdateTasksArg,
   UpdateTaskModelType,
-  RemoveTask,
+  RemoveTaskArg,
 } from "./todolists-tasks-Api-types";
 
 const initialState: TasksStateType = {};
@@ -136,23 +136,26 @@ const updateTask = createAppAsyncThunk<UpdateTasksArg, UpdateTasksArg>(
   },
 );
 
-const removeTask = createAppAsyncThunk<RemoveTask, RemoveTask>("tasks/removeTask", async (arg, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI;
-  try {
-    dispatch(appActions.setAppStatus({ status: "loading" }));
-    const res = await todolistsAPI.deleteTask(arg.todolistId, arg.taskId);
-    if (res.data.resultCode === ResultCode.Success) {
-      dispatch(appActions.setAppStatus({ status: "succeeded" }));
-      return { taskId: arg.taskId, todolistId: arg.todolistId };
-    } else {
-      handleServerAppError(res.data, dispatch);
+const removeTask = createAppAsyncThunk<RemoveTaskArg, RemoveTaskArg>(
+  "tasks/removeTask",
+  async (arg, thunkAPI) => {
+    const { dispatch, rejectWithValue } = thunkAPI;
+    try {
+      dispatch(appActions.setAppStatus({ status: "loading" }));
+      const res = await todolistsAPI.deleteTask(arg.todolistId, arg.taskId);
+      if (res.data.resultCode === ResultCode.Success) {
+        dispatch(appActions.setAppStatus({ status: "succeeded" }));
+        return { taskId: arg.taskId, todolistId: arg.todolistId };
+      } else {
+        handleServerAppError(res.data, dispatch);
+        return rejectWithValue(null);
+      }
+    } catch (error) {
+      handleServerNetworkError(error, dispatch);
       return rejectWithValue(null);
     }
-  } catch (error) {
-    handleServerNetworkError(error, dispatch);
-    return rejectWithValue(null);
-  }
-});
+  },
+);
 
 export type UpdateDomainTaskModelType = {
   title?: string;
