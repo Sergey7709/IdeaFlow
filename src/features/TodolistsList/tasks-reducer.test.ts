@@ -1,3 +1,4 @@
+import { Todolist } from "./Todolist/Todolist";
 import { taskReducer, TasksStateType, tasksThunk } from "./tasks-reducer";
 
 import { todolistsActions, todoListThunk } from "./todolists-reducer";
@@ -156,14 +157,14 @@ test("title of specified task should be changed", () => {
   expect(endState["todolistId2"][0].title).toBe("bread");
 });
 test("new array should be added when new todolist is added", () => {
-  const action = todolistsActions.addTodolist({
-    todolist: {
-      id: "blabla",
-      title: "new todolist",
-      order: 0,
-      addedDate: "",
-    },
-  });
+  const todolist = {
+    id: "blabla",
+    title: "new todolist",
+    order: 0,
+    addedDate: "",
+  };
+
+  const action = todoListThunk.addTodolist.fulfilled({ todolist }, "requestId", { title: todolist.title }); //!!!
 
   const endState = taskReducer(startState, action);
 
