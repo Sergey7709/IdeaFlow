@@ -39,7 +39,7 @@ beforeEach(() => {
 test("correct todolist should be removed", () => {
   const endState = todolistsReducer(
     startState,
-    todoListThunk.removeTodolist.fulfilled({ id: todolistId1 }, "requestId", { id: todolistId1 }), //!!!
+    todoListThunk.removeTodolist.fulfilled({ id: todolistId1 }, "requestId", { id: todolistId1 }),
   );
 
   expect(endState.length).toBe(1);
@@ -56,7 +56,7 @@ test("correct todolist should be added", () => {
 
   const endState = todolistsReducer(
     startState,
-    todoListThunk.addTodolist.fulfilled({ todolist }, "requestId", { title: todolist.title }), //!!!
+    todoListThunk.addTodolist.fulfilled({ todolist }, "requestId", { title: todolist.title }),
   );
 
   expect(endState.length).toBe(3);

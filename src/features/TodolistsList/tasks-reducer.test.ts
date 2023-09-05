@@ -164,7 +164,7 @@ test("new array should be added when new todolist is added", () => {
     addedDate: "",
   };
 
-  const action = todoListThunk.addTodolist.fulfilled({ todolist }, "requestId", { title: todolist.title }); //!!!
+  const action = todoListThunk.addTodolist.fulfilled({ todolist }, "requestId", { title: todolist.title });
 
   const endState = taskReducer(startState, action);
 
@@ -180,8 +180,7 @@ test("new array should be added when new todolist is added", () => {
 test("propertry with todolistId should be deleted", () => {
   const action = todoListThunk.removeTodolist.fulfilled({ id: "todolistId2" }, "requestId", {
     id: "todolistId2",
-  }); //!!!
-
+  });
   const endState = taskReducer(startState, action);
 
   const keys = Object.keys(endState);

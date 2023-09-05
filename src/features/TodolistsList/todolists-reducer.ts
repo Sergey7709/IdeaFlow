@@ -11,14 +11,6 @@ const slice = createSlice({
   name: "todolists",
   initialState: [] as TodolistDomainType[],
   reducers: {
-    // addTodolist: (state, action: PayloadAction<{ todolist: TodolistType }>) => {
-    //   state.unshift({
-    //     ...action.payload.todolist,
-    //     filter: "all",
-    //     entityStatus: "idle",
-    //   });
-    // },
-
     changeTodolistTitle: (state, action: PayloadAction<{ id: string; title: string }>) => {
       const todolist = state.find((todo) => todo.id === action.payload.id);
       if (todolist) {

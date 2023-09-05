@@ -72,7 +72,7 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
 
   const addTodolist = useCallback(
     (title: string) => {
-      const thunk = todoListThunk.addTodolist({ title }); //!!!
+      const thunk = todoListThunk.addTodolist({ title });
       dispatch(thunk);
     },
     [dispatch],
