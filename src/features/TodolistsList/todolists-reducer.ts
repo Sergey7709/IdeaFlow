@@ -10,12 +10,6 @@ const slice = createSlice({
   name: "todolists",
   initialState: [] as TodolistDomainType[],
   reducers: {
-    // changeTodolistTitle: (state, action: PayloadAction<{ id: string; title: string }>) => {
-    //   const todolist = state.find((todo) => todo.id === action.payload.id);
-    //   if (todolist) {
-    //     todolist.title = action.payload.title;
-    //   }
-    // },
     changeTodolistFilter: (state, action: PayloadAction<{ id: string; filter: FilterValuesType }>) => {
       const todolist = state.find((todo) => todo.id === action.payload.id);
       if (todolist) {
@@ -145,14 +139,6 @@ const changeTodolistTitle = createAppAsyncThunk<ChangeTodolistTitleArg, ChangeTo
     }
   },
 );
-
-// export const changeTodolistTitleTC = (id: string, title: string): AppThunk => {
-//   return (dispatch) => {
-//     todolistsAPI.updateTodolist(id, title).then((res) => {
-//       dispatch(todolistsActions.changeTodolistTitle({ id, title }));
-//     });
-//   };
-// };
 
 export type FilterValuesType = "all" | "active" | "completed";
 export type TodolistDomainType = TodolistType & {
