@@ -1,7 +1,6 @@
 import React from "react";
 import { useFormik } from "formik";
 import { useSelector } from "react-redux";
-import { loginTC } from "./auth-reducer";
 import { Navigate } from "react-router-dom";
 import { useAppDispatch } from "common/hooks";
 import {
@@ -15,6 +14,7 @@ import {
   TextField,
 } from "@mui/material";
 import { selectIsLoggedIn } from "./auth.selectors";
+import { authThunks } from "./auth-reducer";
 
 export const Login = () => {
   const dispatch = useAppDispatch();
@@ -40,7 +40,7 @@ export const Login = () => {
       rememberMe: false,
     },
     onSubmit: (values) => {
-      dispatch(loginTC(values));
+      dispatch(authThunks.login(values));
     },
   });
 
