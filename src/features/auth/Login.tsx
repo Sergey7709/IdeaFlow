@@ -1,7 +1,6 @@
-import React from "react";
-import { useFormik } from "formik";
+import React, { useEffect } from "react";
+import { FormikHelpers, useFormik } from "formik";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
 import { useAppDispatch } from "common/hooks";
 import {
   Button,
@@ -15,11 +14,24 @@ import {
 } from "@mui/material";
 import { selectIsLoggedIn } from "./auth.selectors";
 import { authThunks } from "./auth-reducer";
+import { LoginParamsType } from "../TodolistsList/todolists-tasks-Api-types";
+import { BaseResponseType } from "common/types";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
+  const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  const registrationUrl = "https://social-network.samuraijs.com/";
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn]);
 
   const formik = useFormik({
     validate: (values) => {
@@ -39,14 +51,18 @@ export const Login = () => {
       password: "",
       rememberMe: false,
     },
-    onSubmit: (values) => {
-      dispatch(authThunks.login(values));
+
+    onSubmit: async (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
+      try {
+        await dispatch(authThunks.login(values));
+      } catch (error) {
+        const response = error as BaseResponseType;
+        response.fieldsErrors?.forEach((el) => {
+          formikHelpers.setFieldError(el.field, el.error);
+        });
+      }
     },
   });
-
-  if (isLoggedIn) {
-    return <Navigate to={"/"} />;
-  }
 
   return (
     <Grid container justifyContent="center">
@@ -56,7 +72,7 @@ export const Login = () => {
             <FormLabel>
               <p>
                 To log in get registered{" "}
-                <a href={"https://social-network.samuraijs.com/"} target={"_blank"}>
+                <a href={registrationUrl} target={"_blank"} rel={"noopener noreferrer"}>
                   here
                 </a>
               </p>
@@ -66,18 +82,25 @@ export const Login = () => {
             </FormLabel>
             <FormGroup>
               <TextField label="Email" margin="normal" {...formik.getFieldProps("email")} />
-              {formik.errors.email ? <div>{formik.errors.email}</div> : null}
+
+              {formik.errors.email && <div style={{ color: "red" }}>{formik.errors.email}</div>}
               <TextField
                 type="password"
                 label="Password"
                 margin="normal"
                 {...formik.getFieldProps("password")}
               />
-              {formik.errors.password ? <div>{formik.errors.password}</div> : null}
+
+              {formik.errors.password && (
+                <div style={{ color: "red" }}>{formik.errors.password}</div>
+              )}
               <FormControlLabel
                 label={"Remember me"}
                 control={
-                  <Checkbox {...formik.getFieldProps("rememberMe")} checked={formik.values.rememberMe} />
+                  <Checkbox
+                    {...formik.getFieldProps("rememberMe")}
+                    checked={formik.values.rememberMe}
+                  />
                 }
               />
               <Button type={"submit"} variant={"contained"} color={"primary"}>

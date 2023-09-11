@@ -1,7 +1,5 @@
 import { taskReducer } from "../features/TodolistsList/tasks-reducer";
 import { todolistsReducer } from "../features/TodolistsList/todolists-reducer";
-import { AnyAction } from "redux";
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { appReducer } from "./app-reducer";
 import { authReducer } from "../features/auth/auth-reducer";
 import { configureStore } from "@reduxjs/toolkit";
@@ -16,16 +14,8 @@ export const store = configureStore({
 });
 
 export type AppRootStateType = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  AppRootStateType,
-  unknown,
-  AnyAction
->;
-
-export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AnyAction>;
-
-// а это, чтобы можно было в консоли браузера обращаться к store в любой момент
+// код, чтобы можно было в консоли браузера обращаться к store в любой момент
 // @ts-ignore
 window.store = store;
