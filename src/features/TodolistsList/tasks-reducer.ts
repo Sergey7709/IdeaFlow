@@ -31,7 +31,8 @@ const taskSlice = createSlice({
         },
       )
       .addCase(updateTask.fulfilled, (state, action) => {
-        const tasksForTodolist = state[action.payload.todolistId];
+        const { todolistId } = action.payload;
+        const tasksForTodolist = state[todolistId];
         const index = tasksForTodolist.findIndex((t) => t.id === action.payload.taskId);
         if (index !== -1) {
           tasksForTodolist[index] = {
@@ -40,7 +41,7 @@ const taskSlice = createSlice({
           };
         }
       })
-      .addCase(addTask.fulfilled, (state, action: PayloadAction<{ task: TaskType }>) => {
+      .addCase(addTask.fulfilled, (state, action) => {
         const tasksForCurrentTodolist = state[action.payload.task.todoListId];
         tasksForCurrentTodolist.unshift(action.payload.task);
       })
@@ -65,6 +66,7 @@ const fetchTasks = createAppAsyncThunk<{ tasks: Array<TaskType>; todolistId: str
   "tasks/fetchTasks",
   async (todolistId: string, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI;
+
     try {
       dispatch(appActions.setAppStatus({ status: "loading" }));
       const res = await todolistsAPI.getTasks(todolistId);
