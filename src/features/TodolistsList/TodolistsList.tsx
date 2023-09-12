@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { FilterValuesType, todolistsActions, todoListThunk } from "./todolists-reducer";
 import { tasksThunk } from "./tasks-reducer";
 import { Grid, Paper } from "@mui/material";
@@ -11,15 +10,16 @@ import { selectTodolists } from "./todolists.selectors";
 import { selectTasks } from "./tasks.selectors";
 import { selectIsLoggedIn } from "../auth/auth.selectors";
 import { TaskStatuses } from "common/enums";
+import { useAppSelector } from "common/hooks/useAppSelector";
 
 type PropsType = {
   demo?: boolean;
 };
 
 export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
-  const todolists = useSelector(selectTodolists);
-  const tasks = useSelector(selectTasks);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const todolists = useAppSelector(selectTodolists);
+  const tasks = useAppSelector(selectTasks);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
   const dispatch = useAppDispatch();
 

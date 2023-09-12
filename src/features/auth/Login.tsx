@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { FormikHelpers, useFormik } from "formik";
-import { useSelector } from "react-redux";
-import { useAppDispatch } from "common/hooks";
+import { useAppDispatch, useAppSelector } from "common/hooks";
 import {
   Button,
   Checkbox,
@@ -23,7 +22,7 @@ export const Login = () => {
 
   const dispatch = useAppDispatch();
 
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
   const registrationUrl = "https://social-network.samuraijs.com/";
 

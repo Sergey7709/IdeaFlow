@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import "./App.css";
 import { TodolistsList } from "../features/TodolistsList/TodolistsList";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Login } from "../features/auth/Login";
 
@@ -20,15 +20,16 @@ import { selectIsLoggedIn } from "features/auth/auth.selectors";
 import { selectAppStatus, selectIsInitialized } from "./app.selectors";
 import { ErrorSnackbar } from "components";
 import { authThunks } from "../features/auth/auth-reducer";
+import { useAppSelector } from "../common/hooks";
 
 type PropsType = {
   demo?: boolean;
 };
 
 function App({ demo = false }: PropsType) {
-  const status = useSelector(selectAppStatus);
-  const isInitialized = useSelector(selectIsInitialized);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const status = useAppSelector(selectAppStatus);
+  const isInitialized = useAppSelector(selectIsInitialized);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useDispatch<any>();
 
   useEffect(() => {
