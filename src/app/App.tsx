@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import "./App.css";
+import s from "./App.module.css";
 import { TodolistsList } from "../features/TodolistsList/TodolistsList";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -10,12 +10,10 @@ import {
   Button,
   CircularProgress,
   Container,
-  IconButton,
   LinearProgress,
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Menu } from "@mui/icons-material";
 import { selectIsLoggedIn } from "features/auth/auth.selectors";
 import { selectAppStatus, selectIsInitialized } from "./app.selectors";
 import { ErrorSnackbar } from "components";
@@ -42,7 +40,7 @@ function App({ demo = false }: PropsType) {
 
   if (!isInitialized) {
     return (
-      <div style={{ position: "fixed", top: "30%", textAlign: "center", width: "100%" }}>
+      <div className={s.wrapperCircularProgress}>
         <CircularProgress />
       </div>
     );
@@ -52,12 +50,11 @@ function App({ demo = false }: PropsType) {
     <BrowserRouter>
       <div className="App">
         <ErrorSnackbar />
-        <AppBar position="static">
+        <AppBar position="static" color="secondary">
           <Toolbar>
-            <IconButton edge="start" color="inherit" aria-label="menu">
-              <Menu />
-            </IconButton>
-            <Typography variant="h6">News</Typography>
+            <Typography variant="h6" sx={{ flexGrow: 1 }}>
+              Notes of memory
+            </Typography>
             {isLoggedIn && (
               <Button color="inherit" onClick={logoutHandler}>
                 Log out

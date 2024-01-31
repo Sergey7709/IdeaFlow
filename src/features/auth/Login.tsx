@@ -10,6 +10,8 @@ import {
   FormLabel,
   Grid,
   TextField,
+  Typography,
+  Stack,
 } from "@mui/material";
 import { selectIsLoggedIn } from "./auth.selectors";
 import { authThunks } from "./auth-reducer";
@@ -65,25 +67,51 @@ export const Login = () => {
 
   return (
     <Grid container justifyContent="center">
-      <Grid item xs={4}>
+      <Grid item xs={6}>
         <form onSubmit={formik.handleSubmit}>
-          <FormControl>
+          <FormControl
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              textAlign: "center",
+            }}
+            fullWidth
+          >
             <FormLabel>
-              <p>
-                To log in get registered{" "}
-                <a href={registrationUrl} target={"_blank"} rel={"noopener noreferrer"}>
+              <Typography variant="h4" fontWeight={"bold"} color={"secondary"} sx={{ mt: 4 }}>
+                Welcome to app!
+              </Typography>
+
+              <Typography variant="h6" fontWeight={"bold"} textAlign={"center"}>
+                To log in, register:
+              </Typography>
+              <a href={registrationUrl} target={"_blank"} rel={"noopener noreferrer"}>
+                <Typography variant="h6" fontWeight={"bold"}>
                   here
-                </a>
-              </p>
-              <p>or use common test account credentials:</p>
-              <p> Email: free@samuraijs.com</p>
-              <p>Password: free</p>
+                </Typography>
+              </a>
+
+              <Typography fontWeight={"bold"} sx={{ mt: 1 }}>
+                or use common test account credentials:
+              </Typography>
+              <Typography color={"green"} sx={{ display: "flex", justifyContent: "center", mt: 1 }}>
+                Email: free@samuraijs.com
+              </Typography>
+              <Typography color={"green"} sx={{ mt: 1 }}>
+                Password: free
+              </Typography>
             </FormLabel>
             <FormGroup>
-              <TextField label="Email" margin="normal" {...formik.getFieldProps("email")} />
+              <TextField
+                label="Email"
+                size="small"
+                margin="normal"
+                {...formik.getFieldProps("email")}
+              />
 
               {formik.errors.email && <div style={{ color: "red" }}>{formik.errors.email}</div>}
               <TextField
+                size="small"
                 type="password"
                 label="Password"
                 margin="normal"
@@ -102,7 +130,7 @@ export const Login = () => {
                   />
                 }
               />
-              <Button type={"submit"} variant={"contained"} color={"primary"}>
+              <Button type={"submit"} variant={"contained"} color={"secondary"}>
                 Login
               </Button>
             </FormGroup>

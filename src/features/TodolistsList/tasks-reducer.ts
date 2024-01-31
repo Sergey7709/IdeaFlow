@@ -2,7 +2,12 @@ import { appActions } from "app/app-reducer";
 import { todolistsAPI } from "features/TodolistsList/todolists-api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { todoListThunk } from "./todolists-reducer";
-import { createAppAsyncThunk, handleServerNetworkError, handleServerAppError } from "common/utils";
+import {
+  createAppAsyncThunk,
+  handleServerNetworkError,
+  handleServerAppError,
+  thunkTryCatch,
+} from "common/utils";
 import { ResultCode, TaskPriorities, TaskStatuses } from "common/enums";
 import {
   TaskType,
@@ -80,7 +85,7 @@ const fetchTasks = createAppAsyncThunk<{ tasks: Array<TaskType>; todolistId: str
   },
 );
 
-const addTask = createAppAsyncThunk<{ task: TaskType }, AddTasksArg>(
+const _addTask = createAppAsyncThunk<{ task: TaskType }, AddTasksArg>(
   "tasks/addTask",
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI;
@@ -100,6 +105,23 @@ const addTask = createAppAsyncThunk<{ task: TaskType }, AddTasksArg>(
     }
   },
 );
+
+const addTask = createAppAsyncThunk<{ task: TaskType }, AddTasksArg>(
+  "tasks/addTask",
+  async (arg, thunkAPI) => {
+    const { dispatch, rejectWithValue } = thunkAPI;
+    return thunkTryCatch(thunkAPI, async () => {
+      const res = await todolistsAPI.createTask(arg);
+      if (res.data.resultCode === ResultCode.Success) {
+        const task = res.data.data.item;
+        return { task };
+      } else {
+        handleServerAppError(res.data, dispatch);
+        return rejectWithValue(null);
+      }
+    });
+  },
+); //!!!
 
 const updateTask = createAppAsyncThunk<UpdateTasksArg, UpdateTasksArg>(
   "tasks/updateTask",

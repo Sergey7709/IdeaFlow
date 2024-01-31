@@ -75,7 +75,13 @@ export const Todolist = React.memo(function ({ demo = false, ...props }: PropsTy
     <div>
       <h3>
         <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle} />
-        <IconButton onClick={removeTodolist} disabled={props.todolist.entityStatus === "loading"}>
+        <IconButton
+          onClick={removeTodolist}
+          disabled={props.todolist.entityStatus === "loading"}
+          sx={{
+            color: "#fc544e",
+          }}
+        >
           <Delete />
         </IconButton>
       </h3>
@@ -110,7 +116,7 @@ export const Todolist = React.memo(function ({ demo = false, ...props }: PropsTy
         <Button
           variant={props.todolist.filter === "completed" ? "outlined" : "text"}
           onClick={onCompletedClickHandler}
-          color={"secondary"}
+          color={"success"}
         >
           Completed
         </Button>

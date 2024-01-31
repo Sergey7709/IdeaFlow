@@ -7,7 +7,10 @@ type AddItemFormPropsType = {
   disabled?: boolean;
 };
 
-export const AddItemForm = React.memo(function ({ addItem, disabled = false }: AddItemFormPropsType) {
+export const AddItemForm = React.memo(function ({
+  addItem,
+  disabled = false,
+}: AddItemFormPropsType) {
   let [title, setTitle] = useState("");
   let [error, setError] = useState<string | null>(null);
 
@@ -45,7 +48,7 @@ export const AddItemForm = React.memo(function ({ addItem, disabled = false }: A
         label="Title"
         helperText={error}
       />
-      <IconButton color="primary" onClick={addItemHandler} disabled={disabled}>
+      <IconButton color="success" onClick={addItemHandler} disabled={disabled}>
         <AddBox />
       </IconButton>
     </div>
