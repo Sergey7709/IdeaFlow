@@ -8,6 +8,7 @@ import { LoginParamsType } from "../TodolistsList/todolists-tasks-Api-types";
 import { ResultCode } from "common/enums";
 import { todolistsActions } from "../TodolistsList/todolists-reducer";
 import { BaseResponseType } from "common/types";
+import {AxiosResponse} from "axios";
 
 export type InitialStateType = {
   isLoggedIn: boolean;
@@ -20,6 +21,8 @@ const initialState: InitialStateType = {
 export type authSlicePayloadType = {
   isLoggedIn: boolean;
 };
+
+type LoginDataRes = {userId?: number | undefined }
 
 const authSlice = createSlice({
   name: "auth",
@@ -47,8 +50,8 @@ const login = createAppAsyncThunk<
   const { dispatch, rejectWithValue } = thunkAPI;
   try {
     dispatch(appActions.setAppStatus({ status: "loading" }));
-    const res = await authAPI.login(arg);
-    if (res.data.resultCode === ResultCode.Success) {
+    const res:  AxiosResponse<BaseResponseType<LoginDataRes>> = await authAPI.login(arg);
+      if (res.data.resultCode === ResultCode.Success) {
       dispatch(appActions.setAppStatus({ status: "succeeded" }));
       return { isLoggedIn: true };
     } else {
@@ -95,8 +98,9 @@ export const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }>(
       if (res.data.resultCode === ResultCode.Success) {
         dispatch(appActions.setAppStatus({ status: "succeeded" }));
         return { isLoggedIn: true };
-      } else {
-        handleServerNetworkError(res.data, dispatch);
+      }
+      else {
+        dispatch(appActions.setAppStatus({ status: "failed" }));
         return rejectWithValue(null);
       }
     } catch (error) {
@@ -108,6 +112,6 @@ export const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }>(
   },
 );
 
-export const authActions = authSlice.actions;
+// export const authActions = authSlice.actions;
 export const authReducer = authSlice.reducer;
 export const authThunks = { login, logout, initializeApp };
