@@ -7,6 +7,6 @@ const settings = {
   },
 };
 export const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL,
+  baseURL: "https://social-network.samuraijs.com/api/1.1/",
   ...settings,
 });
